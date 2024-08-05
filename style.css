@@ -1,0 +1,49 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#map { height: 500px; }
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    box-shadow: 1px 1px 5px lightgrey;
+
+    p {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+    
+    nav {
+        display: flex;
+        margin-left: auto;
+
+        ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+                margin-left: 1rem;
+                font-size: 1.2rem;
+                font-weight: bold;
+            }
+
+            a {
+                text-decoration: none;
+                color: black;
+            }
+            
+        }
+    }
+}
+
+main {
+    max-width: 80%;
+    margin: 0 auto;
+}

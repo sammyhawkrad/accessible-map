@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title></title>
+        <title>Accessible Map</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="style.css">
@@ -24,12 +24,24 @@
             </nav>
         </header>
         <main>
-            <div id="map" aria-roledescription="Map of Castles in Austria" role="group" aria-describedby="keyboard-shortcuts"></div>
-            <div id="keyboard-shortcuts" style="display: none;">
-                <span>To navigate the map with the keyboard, use the following shortcuts.
-                </span>
-                <div class="keyboard-shortcuts-view">
+            <div id="map" aria-roledescription="Map of Castles in Austria" role="group" aria-describedby="keyboard-shortcuts">
+                <div id="keyboard-shortcuts" style="display: none;">
+                    <span>To navigate the map with the keyboard, use the following shortcuts.
+                        Left arrow, Move left.
+                        Right arrow, Move right.
+                        Up arrow, Move up.
+                        Down arrow, Move down.
+                        Plus key, Zoom in.
+                        Minus key, Zoom out.
+                        When screen reader is active hold Shift key to pan the map with arrow keys.
+                    </span>
+                </div>
+                <div id="shortcuts-wrapper">
+                <div id="keyboard-shortcuts-view" tabindex="0">
+                    <a class="popup-close-button" role="button" aria-label="Close popup" href="#close"><span
+                            aria-hidden="true">×</span></a>
                     <table>
+                        <h2>Keyboard Shortcuts</h2>
                         <tbody>
                             <tr>
                                 <td><kbd aria-label="Left arrow">←</kbd></td>
@@ -57,12 +69,35 @@
                             </tr>
                         </tbody>
                     </table>
-                    <span>When screen reader is active hold Shift key to pan the map with arrow keys.</span>
+                </div>
                 </div>
             </div>
-        </main>
 
-        
+        </main>
+        <aside id="sidebar">
+            <div>
+                <h2>Castles in Austria</h2>
+                <p>
+                    Austria is home to many castles. Some of the most famous castles in Austria are Hohenwerfen Castle, Hochosterwitz Castle, and Schloss Ort. Explore the map to find more castles in Austria.
+                </p>
+            </div>
+            <div id="map-config">
+                <h3>Map Configuration</h3>
+                <!-- increase or decrease font size -->
+                 <div class="font-setting config">
+                     <p aria-label="Font Size">Font Size:</p>
+                     <button id="increase-font-size" aria-label="Increase font size" title="Increase font size">A+</button>
+                     <button id="decrease-font-size" aria-label="Decrease font size" title="Decrease font size">A-</button>
+                 </div>
+            </div>
+
+            <div id="map-controls">
+
+                <!-- <button id="fullscreen" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button>
+                <button id="keyboard-shortcuts-button" aria-label="Keyboard shortcuts" title="Keyboard shortcuts">⌨</button> -->
+            </div>
+        </aside>
+
         <script src="script.js" type="module" async defer></script>
         <script src="plugins/fullscreen/Control.FullScreen.js"></script>
     </body>

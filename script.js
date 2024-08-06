@@ -1,9 +1,29 @@
-var map = L.map('map').setView([47.691, 13.388], 7);
-
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+// Define map layers
+var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
+});
+
+var osmHOT = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '© OpenStreetMap contributors, Tiles style by Humanitarian OpenStreetMap Team hosted by OpenStreetMap France'
+});
+
+var baseMaps = {
+    "OpenStreetMap": osm,
+    "OpenStreetMap.HOT": osmHOT
+};
+
+// Create map
+var map = L.map('map',
+    {
+        attributionControl: true,
+        setPrefix: false,
+        layers: [osm]
+    }
+).setView([47.691, 13.388], 7);
+
+L.control.layers(baseMaps).addTo(map);
 
 //Add fullscreen control
 L.control
@@ -27,6 +47,54 @@ map.on('exitFullscreen', function () {
     fullscreenElement.setAttribute('aria-label', 'Open map in fullscreen mode');
 });
 
+// Add marker
 var marker = L.marker([47.691, 13.388], {alt: "Salzburg"})
     .bindPopup("<b>Salzburg</b><br>Home of Mozart.")
     .addTo(map);
+
+// Add keyboard shortcuts to attribution control
+map.attributionControl.addAttribution(
+    '<button id="shortcuts-button" aria-label="Keyboard Shortcuts">Keyboard Shortcuts</button>'
+);
+
+
+// DOM manipulation
+// Hide / show keyboard shortcuts
+let shortcuts = document.getElementById('keyboard-shortcuts-view');
+let wrapper = document.getElementById('shortcuts-wrapper');
+
+function showShortcuts() {
+    shortcuts.style.display = 'block';
+    wrapper.style.display = 'block';
+    shortcuts.focus();
+}
+
+function closeShortcuts() {
+    shortcuts.style.display = 'none';
+    wrapper.style.display = 'none';
+}
+
+document.getElementById('shortcuts-button').addEventListener('click', showShortcuts);
+document.getElementsByClassName('popup-close-button')[0].addEventListener('click', closeShortcuts);
+
+const sidebar = document.getElementById('sidebar');
+const toggleBtn = document.getElementById('toggleBtn');
+
+// Increase / decrease font size
+let fontSize = 16;
+let increaseBtn = document.getElementById('increase-font-size');
+let decreaseBtn = document.getElementById('decrease-font-size');
+
+function increaseFontSize() {
+    fontSize += 2;
+    document.documentElement.style.fontSize = fontSize + 'px';
+    document.body.style.gridTemplateRows = 'auto max-content';
+}
+
+function decreaseFontSize() {
+    fontSize -= 2;
+    document.documentElement.style.fontSize = fontSize + 'px';
+}
+
+increaseBtn.addEventListener('click', increaseFontSize);
+decreaseBtn.addEventListener('click', decreaseFontSize);

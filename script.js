@@ -98,3 +98,17 @@ function decreaseFontSize() {
 
 increaseBtn.addEventListener('click', increaseFontSize);
 decreaseBtn.addEventListener('click', decreaseFontSize);
+
+// Toggle high contrast mode
+let highContrastBtn = document.getElementById('contrast-checkbox');
+
+function toggleHighContrast() {
+    if (highContrastBtn.checked) {
+        document.body.classList.add('high-contrast');
+
+    } else {
+        document.body.classList.remove('high-contrast');
+    }
+}
+
+highContrastBtn.addEventListener('change', toggleHighContrast);

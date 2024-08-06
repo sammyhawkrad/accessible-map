@@ -122,6 +122,22 @@ aside {
     button:hover {
         background-color: #0056b3;
     }
+
+    .config {
+        margin-bottom: 1rem;
+        border-bottom: 1px solid lightgrey;
+        padding-bottom: 1rem;
+    }
+
+    .contrast {
+        display: flex;
+        justify-content: flex-start;
+        gap: 1rem;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+
 }
 
 #shortcuts-button {

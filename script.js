@@ -1,3 +1,5 @@
+
+import * as data from './data.js';
 // Define map layers
 const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
@@ -49,7 +51,7 @@ var map = L.map('map',
         setPrefix: false,
         layers: [osm]
     }
-).setView([47.691, 13.388], 7);
+).setView([47.691, 13.388], 9);
 
 L.control.layers(baseMaps).addTo(map);
 
@@ -75,15 +77,36 @@ map.on('exitFullscreen', function () {
     fullscreenElement.setAttribute('aria-label', 'Open map in fullscreen mode');
 });
 
-// Add marker
-var marker = L.marker([47.691, 13.388], {alt: "Salzburg"})
-    .bindPopup("<b>Salzburg</b><br>Home of Mozart.")
-    .addTo(map);
 
 // Add keyboard shortcuts to attribution control
 map.attributionControl.addAttribution(
     '<button id="shortcuts-button" aria-label="Keyboard Shortcuts">Keyboard Shortcuts</button>'
 );
+
+// Add data to map
+// const data = fetch('./data/austriancastles.geojson')
+//     .then(response => response.json())
+//     .then(data => {
+//         L.geoJSON(data, {
+//             onEachFeature: function (feature, layer) {
+//                 layer.bindPopup(feature.properties.name);
+//             }
+//         }).addTo(map);
+//     });
+
+data.data.forEach(function (castle) {
+    let marker = L.marker([castle.geometry.coordinates[1], castle.geometry.coordinates[0]],
+        {
+            title: castle.properties.name,
+            alt: castle.properties.name + " " + castle.properties['description-translated'],
+            riseOnHover: true
+        }
+    ).addTo(map)
+    .bindPopup(
+        `<h2>${castle.properties.name}</h2>
+        <p>${castle.properties['description-translated']}</p>`
+    );
+});
 
 
 // DOM manipulation

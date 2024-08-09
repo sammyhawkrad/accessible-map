@@ -85,36 +85,30 @@
                 <h3>Map Configuration</h3>
                 <!-- increase or decrease font size -->
                  <div class="font-setting config">
-                     <label aria-label="Font Size">Font Size</label>
+                     <p aria-label="Font Size">Font Size</p>
                      <span>
                         <button id="increase-font-size" aria-label="Increase font size" title="Increase font size">A+</button>
                         <button id="decrease-font-size" aria-label="Decrease font size" title="Decrease font size">A-</button>
                     </span>
                  </div>
                  <div class="contrast config">
-                    <label for="contrast-checkbox">High Contrast Mode</label>
+                    <p>High Contrast Mode</p>
                     <label class="switch">
-                        <input type="checkbox" name="High  Contrast Mode" id="contrast-checkbox">
+                        <input type="checkbox" aria-label="High Contrast Mode" title="High Contrast Mode" id="contrast-checkbox">
                         <span class="slider round"></span>
                     </label>
                  </div>
                  <div class="basemaps">
-                    <label for="basemap-select">Basemap</label>
+                    <p for="basemap-select">Basemap</p>
                     <div id="basemap-select" aria-label="Select Basemap">
-                        <button aria-label="OpenStreetMap basemap" selected><img src="./images/osm.png" alt=""></button>
-                        <button aria-label="HOTOSM basemap"><img src="./images/hot.png" alt=""></button>
-                        <button aria-label="Jawg Dark basemap"><img src="./images/jawgdark.png" alt=""></button>
-                        <button aria-label="Jawg Light basemap"><img src="./images/jawglight.png" alt=""></button>
-                        <button aria-label="Maptiler Dataviz basemap"><img src="./images/maptilerdataviz.png" alt=""></button>
-                        <button aria-label="Maptiler Toner basemap"><img src="./images/maptilertoner.png" alt=""></button>
+                        <button class="basemap-selector-button" aria-label="OpenStreetMap"><img src="./images/osm.png" alt=""></button>
+                        <button class="basemap-selector-button" aria-label="OpenStreetMap.HOT"><img src="./images/hot.png" alt=""></button>
+                        <button class="basemap-selector-button" aria-label="Maptiler Dataviz"><img src="./images/maptilerdataviz.png" alt=""></button>
+                        <button class="basemap-selector-button" aria-label="Maptiler Toner"><img src="./images/maptilertoner.png" alt=""></button>
+                        <button class="basemap-selector-button" aria-label="Jawg Light"><img src="./images/jawglight.png" alt=""></button>
+                        <button class="basemap-selector-button" aria-label="Jawg Dark"><img src="./images/jawgdark.png" alt=""></button>
                     </div>
                  </div>
-            </div>
-
-            <div id="map-controls">
-
-                <!-- <button id="fullscreen" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button>
-                <button id="keyboard-shortcuts-button" aria-label="Keyboard shortcuts" title="Keyboard shortcuts">⌨</button> -->
             </div>
         </aside>
 

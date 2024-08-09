@@ -49,10 +49,11 @@ var map = L.map('map',
     {
         attributionControl: true,
         setPrefix: false,
-        layers: [osm]
+        layers: [jawgLight]
     }
 ).setView([47.691, 13.388], 9);
 
+// Add layer control
 L.control.layers(baseMaps).addTo(map);
 
 //Add fullscreen control
@@ -113,6 +114,7 @@ data.data.forEach(function (castle) {
 // Hide / show keyboard shortcuts
 let shortcuts = document.getElementById('keyboard-shortcuts-view');
 let wrapper = document.getElementById('shortcuts-wrapper');
+let shortcutsButton = document.getElementById('shortcuts-button');
 
 function showShortcuts() {
     shortcuts.style.display = 'block';
@@ -125,7 +127,7 @@ function closeShortcuts() {
     wrapper.style.display = 'none';
 }
 
-document.getElementById('shortcuts-button').addEventListener('click', showShortcuts);
+shortcutsButton.addEventListener('click', showShortcuts);
 document.getElementsByClassName('popup-close-button')[0].addEventListener('click', closeShortcuts);
 
 const sidebar = document.getElementById('sidebar');
@@ -154,12 +156,18 @@ decreaseBtn.addEventListener('click', decreaseFontSize);
 let highContrastBtn = document.getElementById('contrast-checkbox');
 
 function toggleHighContrast() {
-    if (highContrastBtn.checked) {
-        document.body.classList.add('high-contrast');
-
-    } else {
-        document.body.classList.remove('high-contrast');
-    }
+    highContrastBtn.checked ?
+    document.body.classList.add('high-contrast') :
+    document.body.classList.remove('high-contrast');
 }
 
 highContrastBtn.addEventListener('change', toggleHighContrast);
+
+
+// Change basemap layer with basemap-selector-buttons
+const basemapSelectors = document.querySelectorAll('.basemap-selector-button');
+const basemapLayers = document.querySelectorAll('.leaflet-control-layers-selector');
+
+basemapSelectors.forEach((selector, index) => {
+    selector.addEventListener('click', () => basemapLayers[index].click());
+});

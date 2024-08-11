@@ -133,6 +133,14 @@ data.data.forEach(function (castle) {
     });
 });
 
+// Set map view on marker focus
+const markers = document.querySelectorAll('img.leaflet-marker-icon');
+markers.forEach((marker, i) => marker.addEventListener('focus', 
+    () => {
+        map.setView([data.data[i].geometry.coordinates[1], data.data[i].geometry.coordinates[0]], 10);
+    }
+));
+
 // remove tab index from labels
 const labels = document.querySelectorAll('.label');
 labels.forEach(label => label.removeAttribute('tabindex'));

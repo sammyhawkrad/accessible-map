@@ -95,6 +95,12 @@ map.attributionControl.addAttribution(
 //         }).addTo(map);
 //     });
 
+function focusPopup() {
+    let popup = document.querySelector('.leaflet-popup-content');
+    popup.setAttribute('tabindex', '0');
+    popup.focus();
+}
+
 data.data.forEach(function (castle) {
     let marker = L.marker([castle.geometry.coordinates[1], castle.geometry.coordinates[0]],
         {
@@ -118,12 +124,12 @@ data.data.forEach(function (castle) {
         icon: label
     }).addTo(map);
 
-    // fous leaflet-popup on marker click
-    marker.on('click', function () {
-        let popup = document.querySelector('.leaflet-popup-content');
-        popup.setAttribute('tabindex', '0');
-        console.log(popup);
-        popup.focus();
+    // focus leaflet-popup on marker click
+    marker.on('click', focusPopup);
+    marker.on('keypress', function (event) {
+        if (event.originalEvent.key === 'Enter') {
+            focusPopup();
+        }
     });
 });
 

@@ -119,6 +119,12 @@ main {
 aside {
     grid-area: aside;
     padding: 1rem;
+    height: calc(100vh - 65px);
+    overflow-y: auto;
+    scrollbar-color: #f8f8fa white;
+    scrollbar-width: thin;
+    scrollbar-gutter: stable;
+    
 
     h2, h3 {
         padding: 0.8rem 0;

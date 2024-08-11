@@ -148,6 +148,7 @@ aside {
         align-items: center;
     }
 
+    /* checkbox slider starts */
     .switch {
         position: relative;
         display: inline-block;
@@ -211,16 +212,18 @@ aside {
     border-radius: 50%;
     }
 
+    /* checkbox slider ends */
+
     .basemaps {
-        margin-top: 1rem;
         border-bottom: 1px solid lightgrey;
-        padding-bottom: 1rem;
+        padding: 15px 10px 10px;
     }
 
     #basemap-select{
         display: flex;
         flex-wrap: wrap;
         gap: 7px;
+        padding: 10px 0;
 
         button {
             height: 90px;

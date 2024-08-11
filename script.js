@@ -151,6 +151,19 @@ function closeShortcuts() {
 shortcutsButton.addEventListener('click', showShortcuts);
 document.getElementsByClassName('popup-close-button')[0].addEventListener('click', closeShortcuts);
 
+wrapper.addEventListener('click', function (event) {
+    if (event.target === wrapper) {
+        closeShortcuts();
+    }
+});
+
+// Close shortcuts with escape key
+wrapper.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+        closeShortcuts();
+    }
+});
+
 const sidebar = document.getElementById('sidebar');
 const toggleBtn = document.getElementById('toggleBtn');
 
@@ -186,8 +199,6 @@ highContrastBtn.addEventListener('change', toggleHighContrast);
 
 // Toggle labels
 let labelsBtn = document.getElementById('labels-checkbox');
-
-
 
 labelsBtn.addEventListener('change', () => {
     labelsBtn.checked ?

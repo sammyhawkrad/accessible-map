@@ -62,7 +62,6 @@ header {
 }
 
 main {
-    /* max-width: 80%; */
     margin: 0 auto;
     grid-area: main;
     width: 100%;

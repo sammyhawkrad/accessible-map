@@ -91,6 +91,7 @@
                         <button id="decrease-font-size" aria-label="Decrease font size" title="Decrease font size">A-</button>
                     </span>
                  </div>
+                <!-- high contrast mode -->
                  <div class="contrast config">
                     <p>High Contrast Mode</p>
                     <label class="switch">
@@ -98,6 +99,7 @@
                         <span class="slider round"></span>
                     </label>
                  </div>
+                <!-- basemap selector -->
                  <div class="basemaps">
                     <p for="basemap-select">Basemap</p>
                     <div id="basemap-select" aria-label="Select Basemap">
@@ -109,6 +111,32 @@
                         <button class="basemap-selector-button" aria-label="Jawg Dark"><img src="./images/jawgdark.png" alt=""></button>
                     </div>
                  </div>
+            </div>
+            <!-- Symbols and meanings -->
+            <div aria-hidden="true">
+                <h3>Symbols and Meanings</h3>
+                <div id="symbols">
+                    <div class="symbol">
+                        <span>+</span>
+                        <p>Zoom in map</p>
+                    </div>
+                    <div class="symbol">
+                        <span>−</span>
+                        <p>Zoom out map</p>
+                    </div>
+                    <div class="symbol">
+                        <span class="fullscreen-icon"></span>
+                        <p>To fullscreen view</p>
+                    </div>
+                    <div class="symbol">
+                        <span class="fullscreen-icon leaflet-fullscreen-on"></span>
+                        <p>Exit fullscreen view</p>
+                    </div>
+                    <div class="symbol">
+                        <span class="leaflet-control-layers-toggle"></span>
+                        <p>Map layers toggle</p>
+                    </div>
+                </div>
             </div>
         </aside>
 

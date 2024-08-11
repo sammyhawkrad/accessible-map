@@ -104,6 +104,16 @@ main {
     #keyboard-shortcuts-view:focus {
         border: 2px solid #007bff;
     }
+
+    .label {
+        font-weight: bold;
+        font-size: 0.9rem;
+        text-shadow: -2px 0 white,
+            0 2px white,
+            2px 0 white,
+            0 -2px white;
+    }
+
 }
 
 aside {
@@ -116,7 +126,7 @@ aside {
 
     .font-setting button {
         padding: 0.5rem 1rem;
-        background-color: #1900ff;
+        background-color: #007bff;
         color: white;
         border: none;
         border-radius: 5px;
@@ -227,6 +237,31 @@ aside {
         }
     }
 
+    #symbols {
+        padding: 10px;
+    }
+
+    .symbol {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        column-gap: 2rem;
+        padding: 0.5rem 0;
+
+        span {
+            font: bold 22px 'Lucida Console', Monaco, monospace;
+            text-indent: 1px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            text-align: center;
+            color: black;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 2px;
+        }
+    }
+
 }
 
 #shortcuts-button {
@@ -267,3 +302,13 @@ aside {
     filter: invert(2);
     background-color: black;
 }
+
+/* .leaflet-popup:focus {
+    background-color: blue;
+    color: black;
+} */
+
+/* *:focus {
+    outline: 2px solid #007bff;
+    border-radius: inherit;
+} */

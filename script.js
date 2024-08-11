@@ -99,7 +99,7 @@ data.data.forEach(function (castle) {
     let marker = L.marker([castle.geometry.coordinates[1], castle.geometry.coordinates[0]],
         {
             title: castle.properties.name,
-            alt: castle.properties.name + " " + castle.properties['description-translated'],
+            alt: castle.properties.name, //+ " " + castle.properties['description-translated'],
             riseOnHover: true
         }
     ).addTo(map)
@@ -107,8 +107,29 @@ data.data.forEach(function (castle) {
         `<h2>${castle.properties.name}</h2>
         <p>${castle.properties['description-translated']}</p>`
     );
+
+    //Add labels to markers
+    let label = L.divIcon({
+        className: 'label',
+        html: castle.properties.name
+    });
+
+    L.marker([castle.geometry.coordinates[1], castle.geometry.coordinates[0]], {
+        icon: label
+    }).addTo(map);
+
+    // fous leaflet-popup on marker click
+    marker.on('click', function () {
+        let popup = document.querySelector('.leaflet-popup-content');
+        popup.setAttribute('tabindex', '0');
+        console.log(popup);
+        popup.focus();
+    });
 });
 
+// remove tab index from labels
+const labels = document.querySelectorAll('.label');
+labels.forEach(label => label.removeAttribute('tabindex'));
 
 // DOM manipulation
 // Hide / show keyboard shortcuts

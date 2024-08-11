@@ -132,7 +132,7 @@ aside {
 
     .font-setting button {
         padding: 0.5rem 1rem;
-        background-color: #007bff;
+        background-color: #1900ff;
         color: white;
         border: none;
         border-radius: 5px;
@@ -159,10 +159,6 @@ aside {
         display: inline-block;
         width: 60px;
         height: 34px;
-    }
-
-    .switch:focus {
-        border: 2px solid #007bff;
     }
 
     .switch input { 
@@ -201,6 +197,7 @@ aside {
 
     input:focus + .slider {
     box-shadow: 0 0 1px #2196F3;
+    border: 1px solid;
     }
 
     input:checked + .slider:before {

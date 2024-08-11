@@ -97,6 +97,7 @@ map.attributionControl.addAttribution(
 
 function focusPopup() {
     let popup = document.querySelector('.leaflet-popup-content');
+    popup.style.outline = 'none';
     popup.setAttribute('tabindex', '0');
     popup.focus();
 }
@@ -126,20 +127,34 @@ data.data.forEach(function (castle) {
 
     // focus leaflet-popup on marker click
     marker.on('click', focusPopup);
-    marker.on('keypress', function (event) {
+    marker.on('keypress', (event) => {
         if (event.originalEvent.key === 'Enter') {
             focusPopup();
         }
     });
 });
 
-// Set map view on marker focus
-const markers = document.querySelectorAll('img.leaflet-marker-icon');
-markers.forEach((marker, i) => marker.addEventListener('focus', 
-    () => {
-        map.setView([data.data[i].geometry.coordinates[1], data.data[i].geometry.coordinates[0]], 10);
+// Close popup with escape key
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && map.hasLayer(map._popup)) {
+        map.closePopup();
     }
-));
+}
+);
+
+// save and return focus to the last focused element after closing the popup
+map.on('popupopen', () => {
+    let lastFocusedElement = document.activeElement;
+    map.on('popupclose',  () => lastFocusedElement.focus());
+});
+
+// Set map view on marker focus
+// const markers = document.querySelectorAll('img.leaflet-marker-icon');
+// markers.forEach((marker, i) => marker.addEventListener('focus', 
+//     () => {
+//         map.setView([data.data[i].geometry.coordinates[1], data.data[i].geometry.coordinates[0]], 10);
+//     }
+// ));
 
 // remove tab index from labels
 const labels = document.querySelectorAll('.label');

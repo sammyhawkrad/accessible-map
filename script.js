@@ -109,7 +109,7 @@ data.data.forEach(function (castle) {
     );
 
     //Add labels to markers
-    let label = L.divIcon({
+    var label = L.divIcon({
         className: 'label',
         html: castle.properties.name
     });
@@ -184,6 +184,17 @@ function toggleHighContrast() {
 
 highContrastBtn.addEventListener('change', toggleHighContrast);
 
+// Toggle labels
+let labelsBtn = document.getElementById('labels-checkbox');
+
+
+
+labelsBtn.addEventListener('change', () => {
+    labelsBtn.checked ?
+    document.querySelectorAll('.label').forEach(label => label.style.display = 'block') :
+    document.querySelectorAll('.label').forEach(label => label.style.display = 'none');
+}
+);
 
 // Change basemap layer with basemap-selector-buttons
 const basemapSelectors = document.querySelectorAll('.basemap-selector-button');

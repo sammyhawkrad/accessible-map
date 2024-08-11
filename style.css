@@ -106,6 +106,7 @@ main {
     }
 
     .label {
+        display: none;
         font-weight: bold;
         font-size: 0.9rem;
         text-shadow: -2px 0 white,

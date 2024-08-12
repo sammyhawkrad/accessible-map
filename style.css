@@ -230,7 +230,7 @@ aside {
         button {
             height: 90px;
             width: 90px;
-            border: none;
+            border: lightgray 1px solid;
 
             img {
                 width: 100%;
@@ -240,6 +240,11 @@ aside {
 
         button:hover {
             border: 2px solid #007bff;
+        }
+
+        .selected {
+            border: 2px solid #007bff;
+            filter: opacity(0.6);
         }
     }
 

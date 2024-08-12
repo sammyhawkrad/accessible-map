@@ -243,3 +243,20 @@ const basemapLayers = document.querySelectorAll('.leaflet-control-layers-selecto
 basemapSelectors.forEach((selector, index) => {
     selector.addEventListener('click', () => basemapLayers[index].click());
 });
+
+// Style basemap selector if basemapLayer is selected
+basemapLayers.forEach((layer, index) => {
+    if (layer.checked) {
+        basemapSelectors[index].classList.add('selected');
+    }
+
+    layer.addEventListener('change', () => {
+        basemapSelectors.forEach((selector, i) => {
+            if (i === index) {
+                selector.classList.add('selected');
+            } else {
+                selector.classList.remove('selected');
+            }
+        });
+    });
+});

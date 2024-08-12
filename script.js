@@ -51,7 +51,7 @@ var map = L.map('map',
         setPrefix: false,
         layers: [jawgLight]
     }
-).setView([47.691, 13.388], 9);
+).setView([47.691, 13.388], 8);
 
 // Add layer control
 L.control.layers(baseMaps).addTo(map);
@@ -85,15 +85,57 @@ map.attributionControl.addAttribution(
 );
 
 // Add data to map
-// const data = fetch('./data/austriancastles.geojson')
-//     .then(response => response.json())
-//     .then(data => {
-//         L.geoJSON(data, {
-//             onEachFeature: function (feature, layer) {
-//                 layer.bindPopup(feature.properties.name);
-//             }
-//         }).addTo(map);
-//     });
+fetch('./data/austriancastles.geojson')
+    .then(response => response.json())
+    .then(data => {
+        L.geoJSON(data, {
+            filter: function (castle) {
+                let isAttraction = castle.properties.tourism === 'attraction';
+                let hasImg = castle.properties['img_file'] !== null;
+                let hasDescription = castle.properties['description-translated'] !== null;
+                return isAttraction && hasImg && hasDescription;
+            },
+
+            pointToLayer: function (castle, latlng) {
+                const markerOptions = {
+                    title: castle.properties.name,
+                    alt: castle.properties.name,
+                };
+
+                return L.marker(latlng, markerOptions);
+            },
+
+            onEachFeature: function (castle, layer) {
+                layer.bindPopup(
+                    `<h2>${castle.properties.name}</h2>
+                    <img src="${castle.properties["img_file"]}" alt="">
+                    <p>${castle.properties['description-translated']}</p>`
+                );
+
+                //Add labels to markers
+                let label = L.divIcon({
+                    className: 'label',
+                    html: castle.properties.name
+                });
+
+                L.marker([castle.geometry.coordinates[1], castle.geometry.coordinates[0]], {
+                    icon: label
+                }).addTo(map);
+
+                // focus leaflet-popup on marker click
+                layer.on('click', focusPopup);
+                layer.on('keypress', (event) => {
+                    if (event.originalEvent.key === 'Enter') {
+                        focusPopup();
+                    }
+                });
+
+                layer.on('focus', () => {
+                    map.setView([castle.geometry.coordinates[1], castle.geometry.coordinates[0]], 10);
+                });
+            }
+        }).addTo(map);
+    });
 
 function focusPopup() {
     let popup = document.querySelector('.leaflet-popup-content');
@@ -102,37 +144,37 @@ function focusPopup() {
     popup.focus();
 }
 
-data.data.forEach(function (castle) {
-    let marker = L.marker([castle.geometry.coordinates[1], castle.geometry.coordinates[0]],
-        {
-            title: castle.properties.name,
-            alt: castle.properties.name, //+ " " + castle.properties['description-translated'],
-            riseOnHover: true
-        }
-    ).addTo(map)
-    .bindPopup(
-        `<h2>${castle.properties.name}</h2>
-        <p>${castle.properties['description-translated']}</p>`
-    );
+// data.data.forEach(function (castle) {
+//     let marker = L.marker([castle.geometry.coordinates[1], castle.geometry.coordinates[0]],
+//         {
+//             title: castle.properties.name,
+//             alt: castle.properties.name, //+ " " + castle.properties['description-translated'],
+//             riseOnHover: true
+//         }
+//     ).addTo(map)
+//     .bindPopup(
+//         `<h2>${castle.properties.name}</h2>
+//         <p>${castle.properties['description-translated']}</p>`
+//     );
 
-    //Add labels to markers
-    var label = L.divIcon({
-        className: 'label',
-        html: castle.properties.name
-    });
+//     //Add labels to markers
+//     var label = L.divIcon({
+//         className: 'label',
+//         html: castle.properties.name
+//     });
 
-    L.marker([castle.geometry.coordinates[1], castle.geometry.coordinates[0]], {
-        icon: label
-    }).addTo(map);
+//     L.marker([castle.geometry.coordinates[1], castle.geometry.coordinates[0]], {
+//         icon: label
+//     }).addTo(map);
 
-    // focus leaflet-popup on marker click
-    marker.on('click', focusPopup);
-    marker.on('keypress', (event) => {
-        if (event.originalEvent.key === 'Enter') {
-            focusPopup();
-        }
-    });
-});
+//     // focus leaflet-popup on marker click
+//     marker.on('click', focusPopup);
+//     marker.on('keypress', (event) => {
+//         if (event.originalEvent.key === 'Enter') {
+//             focusPopup();
+//         }
+//     });
+// });
 
 // Close popup with escape key
 document.addEventListener('keydown', (event) => {
@@ -146,6 +188,17 @@ document.addEventListener('keydown', (event) => {
 map.on('popupopen', () => {
     let lastFocusedElement = document.activeElement;
     map.on('popupclose',  () => lastFocusedElement.focus());
+});
+
+// if popup is open + and - keys zoom in and out
+map.on('popupopen', () => {
+    document.addEventListener('keydown', (event) => {
+        if (event.key === '+' || event.key === '=') {
+            map.zoomIn();
+        } else if (event.key === '-') {
+            map.zoomOut();
+        }
+    });
 });
 
 // Set map view on marker focus

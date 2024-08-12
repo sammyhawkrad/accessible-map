@@ -314,15 +314,10 @@ aside {
     background-color: black;
 }
 
-/* .leaflet-popup:focus {
-    background-color: blue;
-    color: black;
-} */
 
-/* *:focus {
-    outline: 2px solid #007bff;
-    border-radius: inherit;
-} */
+.leaflet-popup-content img {
+    width: 300px;
+}
 
 /* About page */
 #about-body {
@@ -339,7 +334,5 @@ aside {
             margin: 1rem auto;
         }
     }
-
-
 }
 

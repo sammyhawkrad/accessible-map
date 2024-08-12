@@ -97,7 +97,7 @@ map.attributionControl.addAttribution(
 
 function focusPopup() {
     let popup = document.querySelector('.leaflet-popup-content');
-    popup.style.outline = 'none';
+    popup.style.padding = '5px';
     popup.setAttribute('tabindex', '0');
     popup.focus();
 }

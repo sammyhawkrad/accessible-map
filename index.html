@@ -7,10 +7,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="plugins/fullscreen/Control.FullScreen.css" />
+        <link rel="stylesheet" href="plugins/pinsearch/Leaflet.PinSearch.css" />
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-            integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     </head>
     <body>
         <header>
@@ -108,7 +109,7 @@
                  </div>
                 <!-- basemap selector -->
                  <div class="basemaps">
-                    <label for="basemap-select" title="Select background map style">Select background map style</label>
+                    <p title="Select background map style">Select background map style</p>
                     <div id="basemap-select" aria-label="Select background map style">
                         <button class="basemap-selector-button" aria-label="OpenStreetMap"><img src="./images/osm.png" alt=""></button>
                         <button class="basemap-selector-button" aria-label="OpenStreetMap.HOT"><img src="./images/hot.png" alt=""></button>
@@ -149,5 +150,6 @@
 
         <script src="script.js" type="module" async defer></script>
         <script src="plugins/fullscreen/Control.FullScreen.js"></script>
+        <script src="plugins/pinsearch/Leaflet.PinSearch.js"></script>
     </body>
 </html>

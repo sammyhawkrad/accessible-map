@@ -53,42 +53,11 @@ var map = L.map('map',
     }
 ).setView([47.691, 13.388], 8);
 
-// Add layer control
-L.control.layers(baseMaps).addTo(map);
-
-//Add fullscreen control
-L.control
-    .fullscreen({
-        position: 'topleft', 
-        title: 'Open map in fullscreen mode', 
-        titleCancel: 'Exit fullscreen mode',
-        forceSeparateButton: true,
-        forcePseudoFullscreen: false,
-        fullscreenElement: false
-    })
-    .addTo(map);
-
-map.on('enterFullscreen', function () {
-    let fullscreenElement = document.querySelector('.leaflet-fullscreen-on');
-    fullscreenElement.setAttribute('aria-label', 'Exit fullscreen mode');
-});
-
-map.on('exitFullscreen', function () {
-    let fullscreenElement = document.querySelector('.fullscreen-icon');
-    fullscreenElement.setAttribute('aria-label', 'Open map in fullscreen mode');
-});
-
-
-// Add keyboard shortcuts to attribution control
-map.attributionControl.addAttribution(
-    '<button id="shortcuts-button" aria-label="Keyboard Shortcuts">Keyboard Shortcuts</button>'
-);
-
 // Add data to map
 fetch('./data/austriancastles.geojson')
     .then(response => response.json())
     .then(data => {
-        L.geoJSON(data, {
+        var geojsonLayer = L.geoJSON(data, {
             filter: function (castle) {
                 let isAttraction = castle.properties.tourism === 'attraction';
                 let hasImg = castle.properties['img_file'] !== null;
@@ -135,7 +104,74 @@ fetch('./data/austriancastles.geojson')
                 });
             }
         }).addTo(map);
+
+        // PinSearch component
+        var searchBar = L.control.pinSearch({
+            position: 'topright',
+            placeholder: 'Search...',
+            buttonText: 'Search',
+            onSearch: function (query) {
+                // Handle the search query here
+                const results = data.features.filter(feature =>
+                    feature.properties.name.toLowerCase().includes(query.toLowerCase())
+                );
+
+                if (results.length > 0) {
+                    const result = results[0];
+                    const latlng = [result.geometry.coordinates[1], result.geometry.coordinates[0]];
+                    map.setView(latlng, 10);
+
+                    // Open popup for the first result
+                    geojsonLayer.eachLayer(function (layer) {
+                        if (layer.feature.properties.name === result.properties.name) {
+                            console.log(`${result.properties.name}, ${layer.feature.properties.name}`);
+                            layer.openPopup();
+                        }
+                    });
+                    
+                }
+            },
+            searchBarWidth: '250px',
+            searchBarHeight: '35px',
+            maxSearchResults: 5
+        }).addTo(map);
+
     });
+    
+    
+
+
+
+//Add fullscreen control
+L.control
+    .fullscreen({
+        position: 'topleft', 
+        title: 'Open map in fullscreen mode', 
+        titleCancel: 'Exit fullscreen mode',
+        forceSeparateButton: true,
+        forcePseudoFullscreen: false,
+        fullscreenElement: false
+    })
+    .addTo(map);
+
+map.on('enterFullscreen', function () {
+    let fullscreenElement = document.querySelector('.leaflet-fullscreen-on');
+    fullscreenElement.setAttribute('aria-label', 'Exit fullscreen mode');
+});
+
+map.on('exitFullscreen', function () {
+    let fullscreenElement = document.querySelector('.fullscreen-icon');
+    fullscreenElement.setAttribute('aria-label', 'Open map in fullscreen mode');
+});
+
+// Add layer control
+L.control.layers(baseMaps).setPosition('topleft').addTo(map);
+
+// Add keyboard shortcuts to attribution control
+map.attributionControl.addAttribution(
+    '<button id="shortcuts-button" aria-label="Keyboard Shortcuts">Keyboard Shortcuts</button>'
+);
+
 
 function focusPopup() {
     let popup = document.querySelector('.leaflet-popup-content');
@@ -144,37 +180,38 @@ function focusPopup() {
     popup.focus();
 }
 
-// data.data.forEach(function (castle) {
-//     let marker = L.marker([castle.geometry.coordinates[1], castle.geometry.coordinates[0]],
-//         {
-//             title: castle.properties.name,
-//             alt: castle.properties.name, //+ " " + castle.properties['description-translated'],
-//             riseOnHover: true
-//         }
-//     ).addTo(map)
-//     .bindPopup(
-//         `<h2>${castle.properties.name}</h2>
-//         <p>${castle.properties['description-translated']}</p>`
-//     );
+data.data.forEach(function (castle) {
+    let marker = L.marker([castle.geometry.coordinates[1], castle.geometry.coordinates[0]],
+        {
+            title: castle.properties.name,
+            alt: castle.properties.name, //+ " " + castle.properties['description-translated'],
+            riseOnHover: true
+        }
+    ).addTo(map)
+    .bindPopup(
+        `<h2>${castle.properties.name}</h2>
+        <img src="${castle.properties["img_file"]}" alt="">
+        <p>${castle.properties['description-translated']}</p>`
+    );
 
-//     //Add labels to markers
-//     var label = L.divIcon({
-//         className: 'label',
-//         html: castle.properties.name
-//     });
+    //Add labels to markers
+    var label = L.divIcon({
+        className: 'label',
+        html: castle.properties.name
+    });
 
-//     L.marker([castle.geometry.coordinates[1], castle.geometry.coordinates[0]], {
-//         icon: label
-//     }).addTo(map);
+    L.marker([castle.geometry.coordinates[1], castle.geometry.coordinates[0]], {
+        icon: label
+    }).addTo(map);
 
-//     // focus leaflet-popup on marker click
-//     marker.on('click', focusPopup);
-//     marker.on('keypress', (event) => {
-//         if (event.originalEvent.key === 'Enter') {
-//             focusPopup();
-//         }
-//     });
-// });
+    // focus leaflet-popup on marker click
+    marker.on('click', focusPopup);
+    marker.on('keypress', (event) => {
+        if (event.originalEvent.key === 'Enter') {
+            focusPopup();
+        }
+    });
+});
 
 // Close popup with escape key
 document.addEventListener('keydown', (event) => {

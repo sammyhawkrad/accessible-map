@@ -108,7 +108,7 @@ fetch('./data/austriancastles.geojson')
         // PinSearch component
         var searchBar = L.control.pinSearch({
             position: 'topright',
-            placeholder: 'Search...',
+            placeholder: 'Search castle',
             buttonText: 'Search',
             onSearch: function (query) {
                 // Handle the search query here

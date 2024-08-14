@@ -25,6 +25,9 @@ L.Control.PinSearch = L.Control.extend({
     input.placeholder = this.options.placeholder;
     input.style.width = this.options.searchBarWidth;
     input.style.height = this.options.searchBarHeight;
+    input.ariaLabel = this.options.placeholder; // Add aria-label to the input for screen readers *Sam
+    input.id = 'search-input'; // Add id to the input for the label to reference *Sam
+    input.autocomplete = 'off'; // Disable autocomplete to prevent browser suggestions *Sam
 
     var searchIcon = L.DomUtil.create('span', 'search-icon', inputContainer);
     searchIcon.innerHTML = '&#128269;';
@@ -220,9 +223,17 @@ L.Control.PinSearch = L.Control.extend({
         var item = document.createElement('div');
         item.className = 'search-results-item';
         item.textContent = match;
+        item.ariaLabel = match; // Add aria-label to the item for screen readers *Sam
+        item.tabIndex = 0; // Make the item focusable *Sam
         item.addEventListener('click', function() {
           self._onSearchItemClick(match);
           resultsContainer.style.display = 'none'; // Hide results after clicking on an item
+        });
+        item.addEventListener('keydown', function (event) {
+          if (event.key === 'Enter') {
+            self._onSearchItemClick(match);
+            resultsContainer.style.display = 'none'; // Hide results after pressing enter on an item *Sam
+          }
         });
         resultsContainer.appendChild(item);
       });

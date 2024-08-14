@@ -236,6 +236,21 @@ map.on('popupopen', () => {
     });
 });
 
+// if popup is open, arrow keys move the map
+map.on('popupopen', () => {
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowUp') {
+            map.panBy([0, -100]);
+        } else if (event.key === 'ArrowDown') {
+            map.panBy([0, 100]);
+        } else if (event.key === 'ArrowLeft') {
+            map.panBy([-100, 0]);
+        } else if (event.key === 'ArrowRight') {
+            map.panBy([100, 0]);
+        }
+    });
+});
+
 // Set map view on marker focus
 // const markers = document.querySelectorAll('img.leaflet-marker-icon');
 // markers.forEach((marker, i) => marker.addEventListener('focus', 

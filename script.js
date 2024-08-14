@@ -140,8 +140,6 @@ fetch('./data/austriancastles.geojson')
     
     
 
-
-
 //Add fullscreen control
 L.control
     .fullscreen({
@@ -184,7 +182,7 @@ data.data.forEach(function (castle) {
     let marker = L.marker([castle.geometry.coordinates[1], castle.geometry.coordinates[0]],
         {
             title: castle.properties.name,
-            alt: castle.properties.name, //+ " " + castle.properties['description-translated'],
+            alt: castle.properties.name,
             riseOnHover: true
         }
     ).addTo(map)
@@ -214,12 +212,12 @@ data.data.forEach(function (castle) {
 });
 
 // Close popup with escape key
-document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && map.hasLayer(map._popup)) {
+map.on('keydown', (event) => {
+    if (event.originalEvent.key === 'Escape' && map.hasLayer(map._popup)) {
+        console.log('Escape key pressed');
         map.closePopup();
     }
-}
-);
+});
 
 // save and return focus to the last focused element after closing the popup
 map.on('popupopen', () => {

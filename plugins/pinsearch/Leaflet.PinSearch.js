@@ -31,7 +31,8 @@ L.Control.PinSearch = L.Control.extend({
 
     var searchIcon = L.DomUtil.create('span', 'search-icon', inputContainer);
     searchIcon.innerHTML = '&#128269;';
-    searchIcon.style.fontSize = '1.5em'; 
+    searchIcon.style.fontSize = '1.5em';
+    searchIcon.ariaHidden = true; // Hide the icon from screen readers *Sam
 
     var resultsContainer = L.DomUtil.create('div', 'search-results', container);
     resultsContainer.style.display = 'none';

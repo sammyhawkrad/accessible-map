@@ -214,7 +214,6 @@ data.data.forEach(function (castle) {
 // Close popup with escape key
 map.on('keydown', (event) => {
     if (event.originalEvent.key === 'Escape' && map.hasLayer(map._popup)) {
-        console.log('Escape key pressed');
         map.closePopup();
     }
 });
@@ -238,18 +237,34 @@ map.on('popupopen', () => {
 
 // if popup is open, arrow keys move the map
 map.on('popupopen', () => {
-    document.addEventListener('keydown', (event) => {
-        if (event.key === 'ArrowUp') {
-            map.panBy([0, -100]);
-        } else if (event.key === 'ArrowDown') {
-            map.panBy([0, 100]);
-        } else if (event.key === 'ArrowLeft') {
-            map.panBy([-100, 0]);
-        } else if (event.key === 'ArrowRight') {
-            map.panBy([100, 0]);
-        }
-    });
+    focusPopup();
+    document.querySelector('.search-results').style.display = 'none';
+
+    if (map.hasLayer(map._popup)) {   
+            document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowUp') {
+                map.panBy([0, -100]);
+            } else if (event.key === 'ArrowDown') {
+                map.panBy([0, 100]);
+            } else if (event.key === 'ArrowLeft') {
+                map.panBy([-100, 0]);
+            } else if (event.key === 'ArrowRight') {
+                map.panBy([100, 0]);
+            }
+        });
+    }
 });
+
+// use shift + f to focus the search bar on document
+document.addEventListener('keydown', (event) => {
+    if (event.shiftKey && event.code === 'KeyF') {
+        event.preventDefault();
+        let searchInput = document.querySelector('.search-input');
+        searchInput.focus();
+        searchInput.value = '';
+    }
+});
+
 
 // Set map view on marker focus
 // const markers = document.querySelectorAll('img.leaflet-marker-icon');

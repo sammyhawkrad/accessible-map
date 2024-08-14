@@ -94,9 +94,13 @@ main {
             padding: 0.3rem;
             border-radius: 3px;
             width: 40px;
+            min-width: min-content;
             text-align: center;
             font-weight: bold;
             font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     }
 

@@ -72,7 +72,7 @@ L.Control.PinSearch = L.Control.extend({
       self._onResultsItemKeydown(event);
     });
 
-    document.addEventListener('keyup', function(event) {
+    container.addEventListener('keyup', function(event) {  // Localise keyup event listener to the container *Sam
       self._onDocumentKeyup(event);
     });
 

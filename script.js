@@ -112,6 +112,7 @@ fetch('./data/austriancastles.geojson')
                 const results = data.features.filter(feature =>
                     feature.properties.name.toLowerCase().includes(query.toLowerCase())
                 );
+                map.setView([results[0].geometry.coordinates[1], results[0].geometry.coordinates[0]], 12);
             },
 
             searchBarWidth: '250px',
@@ -216,10 +217,6 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-// remove tab index from labels
-const labels = document.querySelectorAll('.label');
-labels.forEach(label => label.removeAttribute('tabindex'));
-
 // DOM manipulation
 // Hide / show keyboard shortcuts
 let shortcuts = document.getElementById('keyboard-shortcuts-view');
@@ -291,10 +288,13 @@ let labelsBtn = document.getElementById('labels-checkbox');
 
 labelsBtn.addEventListener('change', () => {
     labelsBtn.checked ?
-    document.querySelectorAll('.label').forEach(label => label.style.display = 'block') :
-    document.querySelectorAll('.label').forEach(label => label.style.display = 'none');
-}
-);
+    document.querySelectorAll('.label').forEach(
+        label => {
+            label.style.display = 'block';
+            label.removeAttribute('tabindex');
+        }) 
+    : document.querySelectorAll('.label').forEach(label => label.style.display = 'none');
+});
 
 // Change basemap layer with basemap-selector-buttons
 const basemapSelectors = document.querySelectorAll('.basemap-selector-button');

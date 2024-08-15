@@ -50,7 +50,7 @@ var map = L.map('map',
         setPrefix: false,
         layers: [jawgLight]
     }
-).setView([47.691, 13.388], 8);
+).setView([47.69, 13.38], 7);
 
 // Add data to map
 fetch('./data/austriancastles.geojson')
@@ -68,8 +68,8 @@ fetch('./data/austriancastles.geojson')
                 const markerOptions = {
                     title: castle.properties.name,
                     alt: castle.properties.name,
+                    icon: L.icon({iconUrl: './images/castle-marker-icon.png', iconSize: [28, 41]}),
                 };
-
                 return L.marker(latlng, markerOptions);
             },
 
@@ -97,15 +97,11 @@ fetch('./data/austriancastles.geojson')
                         focusPopup();
                     }
                 });
-
-                layer.on('focus', () => {
-                    map.setView([castle.geometry.coordinates[1], castle.geometry.coordinates[0]], 10);
-                });
             }
         }).addTo(map);
 
         // PinSearch component
-        var searchBar = L.control.pinSearch({
+        L.control.pinSearch({
             position: 'topright',
             placeholder: 'Search castle',
             buttonText: 'Search',
@@ -114,9 +110,8 @@ fetch('./data/austriancastles.geojson')
                 const results = data.features.filter(feature =>
                     feature.properties.name.toLowerCase().includes(query.toLowerCase())
                 );
-
-                console.log(results[0]);
             },
+
             searchBarWidth: '250px',
             searchBarHeight: '35px',
             maxSearchResults: 5

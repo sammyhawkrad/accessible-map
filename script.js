@@ -58,19 +58,18 @@ fetch('./data/austriancastles.geojson')
     .then(data => {
         L.geoJSON(data, {
             filter: function (castle) {
-                //let isAttraction = castle.properties.tourism === 'attraction';
+                let isAttraction = castle.properties.tourism === 'attraction';
                 let hasImg = castle.properties['img_file'] !== null;
                 let hasDescription = castle.properties['description-translated'] !== null;
                 let isNotRuin = castle.properties.ruins === 'no' || castle.properties.ruins === null;
-                return isNotRuin && hasImg && hasDescription;
+                return isNotRuin && isAttraction && hasImg && hasDescription;
             },
 
             pointToLayer: function (castle, latlng) {
                 const markerOptions = {
                     title: castle.properties.name,
                     alt: castle.properties.name,
-                    icon: L.icon({iconUrl: './images/castle-marker-icon.png', iconSize: [28, 41]}),
-                    riseOnHover: true
+                    //icon: L.icon({iconUrl: './images/castle-marker-icon.png', iconSize: [28, 41]}),
                 };
                 return L.marker(latlng, markerOptions);
             },
@@ -122,7 +121,7 @@ fetch('./data/austriancastles.geojson')
 
     });
     
-    
+
 
 //Add fullscreen control
 L.control

@@ -58,10 +58,11 @@ fetch('./data/austriancastles.geojson')
     .then(data => {
         L.geoJSON(data, {
             filter: function (castle) {
-                let isAttraction = castle.properties.tourism === 'attraction';
+                //let isAttraction = castle.properties.tourism === 'attraction';
                 let hasImg = castle.properties['img_file'] !== null;
                 let hasDescription = castle.properties['description-translated'] !== null;
-                return isAttraction && hasImg && hasDescription;
+                let isNotRuin = castle.properties.ruins === 'no' || castle.properties.ruins === null;
+                return isNotRuin && hasImg && hasDescription;
             },
 
             pointToLayer: function (castle, latlng) {
@@ -69,6 +70,7 @@ fetch('./data/austriancastles.geojson')
                     title: castle.properties.name,
                     alt: castle.properties.name,
                     icon: L.icon({iconUrl: './images/castle-marker-icon.png', iconSize: [28, 41]}),
+                    riseOnHover: true
                 };
                 return L.marker(latlng, markerOptions);
             },
@@ -187,9 +189,10 @@ map.on('popupopen', () => {
 map.on('popupopen', () => {
     focusPopup();
     document.querySelector('.search-results').style.display = 'none';
+    let main = document.querySelector('main');
 
     if (map.hasLayer(map._popup)) {   
-            document.addEventListener('keydown', (event) => {
+            main.addEventListener('keydown', (event) => {
             if (event.key === 'ArrowUp') {
                 map.panBy([0, -100]);
             } else if (event.key === 'ArrowDown') {
@@ -212,15 +215,6 @@ document.addEventListener('keydown', (event) => {
         searchInput.value = '';
     }
 });
-
-
-// Set map view on marker focus
-// const markers = document.querySelectorAll('img.leaflet-marker-icon');
-// markers.forEach((marker, i) => marker.addEventListener('focus', 
-//     () => {
-//         map.setView([data.data[i].geometry.coordinates[1], data.data[i].geometry.coordinates[0]], 10);
-//     }
-// ));
 
 // remove tab index from labels
 const labels = document.querySelectorAll('.label');

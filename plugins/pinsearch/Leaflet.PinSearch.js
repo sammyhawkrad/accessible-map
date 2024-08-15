@@ -1,3 +1,5 @@
+import { focusPopup } from "../../script.js";
+
 L.Control.PinSearch = L.Control.extend({
   options: {
     position: 'topright',
@@ -244,6 +246,7 @@ L.Control.PinSearch = L.Control.extend({
     }
   },
 
+
   _onSearchItemClick: function(query) {
     var input = this._container.querySelector('.search-input');
     input.value = query;
@@ -253,6 +256,8 @@ L.Control.PinSearch = L.Control.extend({
       var marker = this._findMarkerByTitle(query);
       if (marker) {
         this._map.panTo(marker.getLatLng());
+        marker.openPopup(); // Open the marker popup *Sam
+        focusPopup(); // Focus on the popup content *Sam
       }
     }
   },

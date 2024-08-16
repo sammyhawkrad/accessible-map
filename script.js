@@ -66,7 +66,7 @@ fetch('./data/austriancastles.geojson')
 
             pointToLayer: function (castle, latlng) {
                 const markerOptions = {
-                    //title: castle.properties.name,
+                    title: castle.properties.name,
                     alt: castle.properties.name,
                     //icon: L.icon({iconUrl: './images/circle-castle-icon.png', iconSize: [28, 41]}),
                 };
@@ -85,7 +85,8 @@ fetch('./data/austriancastles.geojson')
                 //Add labels to markers
                 let label = L.divIcon({
                     className: 'label',
-                    html: castle.properties.name
+                    html: castle.properties.name,
+                    alt: castle.properties.name,
                 });
 
                 L.marker([castle.geometry.coordinates[1], castle.geometry.coordinates[0]], {
@@ -207,6 +208,12 @@ map.on('popupopen', () => {
     }
 });
 
+//hide tooltip from screen readers
+document.getElementsByClassName('leaflet-tooltip-pane')[0].setAttribute('aria-hidden', 'true');
+
+//remove marker aria-describedby from markers
+document.querySelectorAll('.leaflet-marker-icon').forEach(marker => marker.removeAttribute('aria-describedby'));
+
 // use shift + f to focus the search bar on document
 document.addEventListener('keydown', (event) => {
     if (event.shiftKey && event.code === 'KeyF') {
@@ -250,9 +257,6 @@ wrapper.addEventListener('keydown', function (event) {
     }
 });
 
-const sidebar = document.getElementById('sidebar');
-const toggleBtn = document.getElementById('toggleBtn');
-
 // Increase / decrease font size
 let fontSize = 16;
 let increaseBtn = document.getElementById('increase-font-size');
@@ -282,6 +286,13 @@ function toggleHighContrast() {
 }
 
 highContrastBtn.addEventListener('change', toggleHighContrast);
+
+//if body has high contrast class, add filter: invert() to popup image
+map.on('popupopen', () => {
+    if (document.body.classList.contains('high-contrast')) {
+        document.querySelector('.leaflet-popup-content img').style.filter = 'invert()';
+    }
+});
 
 // Toggle labels
 let labelsBtn = document.getElementById('labels-checkbox');

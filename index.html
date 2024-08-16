@@ -25,7 +25,7 @@
             </nav>
         </header>
         <main>
-            <div id="map" aria-roledescription="Map of Castles in Austria" role="group" aria-describedby="keyboard-shortcuts">
+            <div id="map" aria-roledescription="Map of Castles in Austria" role="group" aria-label="Map" aria-describedby="keyboard-shortcuts">
                 <div id="keyboard-shortcuts" style="display: none;">
                     To navigate the map with the keyboard, use the following shortcuts.
                     Left arrow, Move left.
@@ -92,7 +92,7 @@
                     Austria is home to many castles. Some of the most famous castles in Austria are Hohenwerfen Castle, Hochosterwitz Castle, and Schloss Ort. Explore the map to find more castles in Austria.
                 </p>
             </div>
-            <div id="map-config">
+            <div id="map-config" tabindex="0" role="group" aria-label="Map configuration">
                 <h2>Map Configuration</h2>
                 <!-- increase or decrease font size -->
                  <div class="font-setting config">
@@ -105,7 +105,7 @@
                 <!-- high contrast mode -->
                  <div class="contrast config">
                     <p>High Contrast Mode</p>
-                    <label for="contrast-checkbox" class="switch" title="High Contrast Mode">
+                    <label for="contrast-checkbox" class="switch">High Contrast Mode
                         <input type="checkbox" aria-label="High Contrast Mode" id="contrast-checkbox">
                         <span class="slider round"></span>
                     </label>
@@ -113,14 +113,14 @@
                 <!-- display castle names -->
                  <div class="labels config">
                     <p>Display castle names</p>
-                    <label for="labels-checkbox" class="switch" title="Display castle names">
+                    <label for="labels-checkbox" class="switch">Display castle names
                         <input type="checkbox" aria-label="Show castle names on map" id="labels-checkbox">
                         <span class="slider round"></span>
                     </label>
                  </div>
                 <!-- basemap selector -->
-                 <div class="basemaps">
-                    <p title="Select background map style">Select background map style</p>
+                 <div class="basemaps" tabindex="0" role="group" aria-labelledby="basemap-selector">
+                    <p id="basemap-selector">Select background map style</p>
                     <div id="basemap-select" aria-label="Select background map style">
                         <button class="basemap-selector-button" aria-label="OpenStreetMap"><img src="./images/osm.png" alt=""></button>
                         <button class="basemap-selector-button" aria-label="OpenStreetMap.HOT"><img src="./images/hot.png" alt=""></button>

@@ -15,7 +15,7 @@
     </head>
     <body>
         <header>
-            <p>Accessible Map</p>
+            <h1>Accessible Map</h1>
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
@@ -39,10 +39,16 @@
                 </div>
                 <div id="shortcuts-wrapper">
                 <div id="keyboard-shortcuts-view" tabindex="0" aria-label="Keyboard Shortcuts" aria-describedby="keyboard-shortcuts">
-                    <a class="popup-close-button" role="button" aria-label="Close popup" href="#close"><span
+                    <a class="popup-close-button" role="button" aria-label="Close popup"><span
                             aria-hidden="true">×</span></a>
                     <table>
                         <h2>Keyboard Shortcuts</h2>
+                        <thead>
+                            <tr>
+                                <th>Key</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
                         <tbody>
                             <tr>
                                 <td><kbd aria-label="Left arrow">←</kbd></td>
@@ -87,7 +93,7 @@
                 </p>
             </div>
             <div id="map-config">
-                <h3>Map Configuration</h3>
+                <h2>Map Configuration</h2>
                 <!-- increase or decrease font size -->
                  <div class="font-setting config">
                      <p aria-label="Font Size">Font Size</p>
@@ -99,7 +105,7 @@
                 <!-- high contrast mode -->
                  <div class="contrast config">
                     <p>High Contrast Mode</p>
-                    <label class="switch" title="High Contrast Mode">
+                    <label for="contrast-checkbox" class="switch" title="High Contrast Mode">
                         <input type="checkbox" aria-label="High Contrast Mode" id="contrast-checkbox">
                         <span class="slider round"></span>
                     </label>
@@ -107,7 +113,7 @@
                 <!-- display castle names -->
                  <div class="labels config">
                     <p>Display castle names</p>
-                    <label class="switch" title="Display castle names">
+                    <label for="labels-checkbox" class="switch" title="Display castle names">
                         <input type="checkbox" aria-label="Show castle names on map" id="labels-checkbox">
                         <span class="slider round"></span>
                     </label>
@@ -127,7 +133,7 @@
             </div>
             <!-- Symbols and meanings -->
             <div aria-hidden="true">
-                <h3>Symbols and Meanings</h3>
+                <h2>Symbols and Meanings</h2>
                 <div id="symbols">
                     <div class="symbol">
                         <span>+</span>

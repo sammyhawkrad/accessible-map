@@ -1,4 +1,3 @@
-
 // Define map layers
 const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
@@ -67,9 +66,9 @@ fetch('./data/austriancastles.geojson')
 
             pointToLayer: function (castle, latlng) {
                 const markerOptions = {
-                    title: castle.properties.name,
+                    //title: castle.properties.name,
                     alt: castle.properties.name,
-                    //icon: L.icon({iconUrl: './images/castle-marker-icon.png', iconSize: [28, 41]}),
+                    //icon: L.icon({iconUrl: './images/circle-castle-icon.png', iconSize: [28, 41]}),
                 };
                 return L.marker(latlng, markerOptions);
             },
@@ -80,6 +79,8 @@ fetch('./data/austriancastles.geojson')
                     <img src="${castle.properties["img_file"]}" alt="">
                     <p>${castle.properties['description-translated']}</p>`
                 );
+
+                layer.bindTooltip(castle.properties.name)
 
                 //Add labels to markers
                 let label = L.divIcon({

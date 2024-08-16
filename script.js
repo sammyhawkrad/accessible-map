@@ -86,7 +86,6 @@ fetch('./data/austriancastles.geojson')
                 let label = L.divIcon({
                     className: 'label',
                     html: castle.properties.name,
-                    alt: castle.properties.name,
                 });
 
                 L.marker([castle.geometry.coordinates[1], castle.geometry.coordinates[0]], {

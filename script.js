@@ -80,7 +80,7 @@ fetch('./data/austriancastles.geojson')
                     <p>${castle.properties['description-translated']}</p>`
                 );
 
-                layer.bindTooltip(castle.properties.name)
+                //layer.bindTooltip(castle.properties.name)
 
                 //Add labels to markers
                 let label = L.divIcon({

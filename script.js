@@ -164,9 +164,17 @@ function focusPopup() {
 
 // Close popup with escape key
 map.on('keydown', (event) => {
-    if (event.originalEvent.key === 'Escape' && map.hasLayer(map._popup)) {
+    try{
+    if (event.originalEvent.key === 'Escape' && document.querySelector('.search-results').style.display === 'block') {
+        document.querySelector('.search-results').style.display = 'none';
+    }
+     else if (event.originalEvent.key === 'Escape' && map.hasLayer(map._popup)) {
         map.closePopup();
     }
+    } catch (error) {
+        console.log('No popup or search results open');
+    }
+    
 });
 
 // save and return focus to the last focused element after closing the popup

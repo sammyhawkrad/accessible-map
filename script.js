@@ -67,7 +67,7 @@ fetch('./data/austriancastles.geojson')
             pointToLayer: function (castle, latlng) {
                 const markerOptions = {
                     title: castle.properties.name,
-                    alt: castle.properties.name,
+                    //alt: castle.properties.name,
                     //icon: L.icon({iconUrl: './images/circle-castle-icon.png', iconSize: [28, 41]}),
                 };
                 return L.marker(latlng, markerOptions);

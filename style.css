@@ -18,6 +18,20 @@ body {
     grid-template-areas: 
         "header header header header header"
         "aside main main main main";
+
+    .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background-color: #007bff;
+        color: white;
+        padding: 10px;
+        z-index: 10000;
+    }
+
+    .skip-link:focus {
+        top: 0;
+    }
 }
 
 header {
@@ -26,7 +40,6 @@ header {
     padding: 1rem;
     box-shadow: 1px 1px 5px lightgrey;
     height: auto;
-    /* min-height: 65px; */
     grid-area: header;
 
 

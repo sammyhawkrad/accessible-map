@@ -34,6 +34,12 @@ body {
     }
 }
 
+.hidden-sidebar {
+    grid-template-areas:
+            "header header header header header"
+            "main main main main main";
+}
+
 header {
     display: flex;
     justify-content: space-between;
@@ -139,6 +145,22 @@ main {
             0 -2px white;
     }
 
+    #sidebar-button {
+        position: absolute;
+        top: 50%;
+        z-index: 10000;
+        background-color: white;
+        border: 2px solid rgba(0, 0, 0, 0.2);
+        border-left: none;
+        cursor: pointer;
+        padding: 0.7rem 0.3rem;
+        font-size: 1.5rem;
+        border-radius: 0 5px 5px 0 ;
+    }
+
+    #sidebar-button:hover {
+        background-color: #f8f8fa;
+    }
 }
 
 aside {
@@ -150,7 +172,6 @@ aside {
     scrollbar-width: thin;
     scrollbar-gutter: stable;
     
-
     h2, h3 {
         padding: 0.8rem 0;
     }
@@ -343,6 +364,10 @@ aside {
 
 .leaflet-popup-content img {
     width: 290px;
+}
+
+.hidden {
+    display: none;
 }
 
 /* About page */

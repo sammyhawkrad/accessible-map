@@ -339,4 +339,21 @@ basemapLayers.forEach((layer, index) => {
     });
 });
 
+// Show / hide sidebar with .sidebarbutton
+let sidebarButton = document.getElementById('sidebar-button');
+let sidebar = document.getElementById('sidebar');
+
+sidebarButton.addEventListener('click', () => {
+    sidebar.classList.toggle('hidden');
+    document.body.classList.toggle('hidden-sidebar');
+    sidebarButton.firstElementChild.innerHTML = sidebar.classList.contains('hidden') ? '>' : '<';
+
+    sidebar.classList.contains('hidden') ? 
+    sidebarButton.setAttribute('aria-label', 'Show complementary content') 
+    : sidebarButton.setAttribute('aria-label', 'Hide complementary content');
+
+    map.invalidateSize();
+}
+);
+
 export {focusPopup};

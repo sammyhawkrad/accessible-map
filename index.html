@@ -14,7 +14,7 @@
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     </head>
     <body>
-        <!-- add skip to map link -->
+        <!-- skip to map link -->
         <a href="#map" class="skip-link">Skip to Map</a>
         <header>
             <h1>Accessible Map</h1>
@@ -85,9 +85,11 @@
                 </div>
                 </div>
             </div>
+            <!-- toggle button to show/hide sidebar -->
+            <button id="sidebar-button" aria-label="Hide complementary content"><span aria-hidden="true">&lt;</span></button>
 
         </main>
-        <aside id="sidebar" tabindex="0">
+        <aside id="sidebar" aria-label="Map description and configuration panel" tabindex="0">
             <div>
                 <h2>Castles in Austria</h2>
                 <p>

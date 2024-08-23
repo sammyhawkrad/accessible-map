@@ -19,11 +19,11 @@ body {
         "header header header header header"
         "aside main main main main";
 
-    .skip-link {
+    .skip-link {    
         position: absolute;
-        top: -40px;
+        top: -500px;
         left: 0;
-        background-color: #007bff;
+        background-color: #000000;
         color: white;
         padding: 10px;
         z-index: 10000;

@@ -342,10 +342,19 @@ basemapLayers.forEach((layer, index) => {
 // Show / hide sidebar with .sidebarbutton
 let sidebarButton = document.getElementById('sidebar-button');
 let sidebar = document.getElementById('sidebar');
+let mobileScreen = window.matchMedia('(max-width: 768px)').matches;
+
+mobileScreen ? sidebarButton.firstElementChild.innerHTML = '>' : sidebarButton.firstElementChild.innerHTML = '<';
 
 sidebarButton.addEventListener('click', () => {
+    mobileScreen ?
+    sidebar.classList.toggle('displayed') :
     sidebar.classList.toggle('hidden');
+
     document.body.classList.toggle('hidden-sidebar');
+    
+    mobileScreen ?
+    sidebarButton.firstElementChild.innerHTML = sidebar.classList.contains('displayed') ? '<' : '>' :
     sidebarButton.firstElementChild.innerHTML = sidebar.classList.contains('hidden') ? '>' : '<';
 
     sidebar.classList.contains('hidden') ? 
@@ -355,5 +364,11 @@ sidebarButton.addEventListener('click', () => {
     map.invalidateSize();
 }
 );
+
+sidebarButton.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        sidebarButton.click();
+    }
+});
 
 export {focusPopup};

@@ -371,4 +371,7 @@ sidebarButton.addEventListener('keydown', (event) => {
     }
 });
 
+//hide labels from screen readers
+document.querySelectorAll('.label').forEach(label => label.setAttribute('aria-hidden', 'true'));
+
 export {focusPopup};
